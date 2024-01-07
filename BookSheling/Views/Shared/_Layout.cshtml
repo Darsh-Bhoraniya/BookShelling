@@ -177,7 +177,7 @@
                     </li>
                     <li>
                         <a asp-controller="Home" asp-action="Privacy" asp-area="">
-                            <i class="bi bi-plus" style="font-size: 2rem"></i><span>Add New books</span>
+                            <i class="bi bi-plus" style="font-size: 1rem"></i><span>Add New books</span>
                         </a>
                     </li>
                 </ul>
@@ -190,12 +190,12 @@
                 <ul id="users-nav" class="nav-content collapse" data-bs-parent="#users-parent">
                     <li>
                         <a asp-controller="User" asp-action="GetAllUsers" asp-area="">
-                            <i class="bi bi-circle"></i><span>All Authors</span>
+                            <i class="bi bi-circle"></i><span>All Users</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="" asp-action="">
-                            <i class="bi bi-plus"></i><span>Add Authors</span>
+                        <a asp-area="" asp-controller="User" asp-action="RegisterUsers">
+                            <i class="bi bi-plus"></i><span>Register</span>
                         </a>
                     </li>
                 </ul>
