@@ -110,7 +110,7 @@ namespace BookSheling.Controllers
                 }
                 else
                 {
-                    HttpResponseMessage response = await _client.PutAsync($"{Baseurl}/User/Update", content);
+                    HttpResponseMessage response = await _client.PutAsync($"{Baseurl}/User/Update/", content);
                     if (response.IsSuccessStatusCode)
                     {
                         TempData["Masssege"] = "User Updated Successfully";
