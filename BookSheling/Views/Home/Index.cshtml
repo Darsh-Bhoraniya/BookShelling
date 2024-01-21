@@ -1,3 +1,68 @@
-﻿<h1>
-    heloo
-</h1>
+﻿
+ <section class="section dashboard">
+     <div class="row">
+         <!-- Left side columns -->
+         <div class="col-lg-8">
+             <div class="row">
+                 <!-- Products Card -->
+                 <div class="col-xxl-3 col-md-6">
+                     <div class="card info-card abed-card border-5 border-info border-top rounded">
+                         <div class="card-body">
+                             <h5 class="card-title">Books <span>|</span></h5>
+                             <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center text-info bg-info-subtle bi bi-book">
+                                     <i class="fa-brands fa-product-hunt"></i>
+                                 </div>
+                                 <div class="ps-3">
+                                     <h6>@ViewBag.DashboardData["BookCount"]</h6>
+                                 </div>
+                             </div>
+                             <hr style="color:aqua" />
+                             @*<a asp-area="AdminProducts" asp-controller="AdminProducts" asp-action="Index" class="text-info">View Details <i class="bi bi-arrow-right-circle-fill"></i></a>*@
+                         </div>
+                     </div>
+                 </div>
+                 <!-- end Products Card -->
+                 <!-- Category Card -->
+                 <div class="col-xxl-3 col-md-6">
+                     <div class="card info-card abed-card border-5 border-info border-top rounded">
+                         <div class="card-body">
+                             <h5 class="card-title">Users <span>|</span></h5>
+                             <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center text-info bg-info-subtle bi bi-people">
+                                     <i class="fa-solid fa-list"></i>
+                                 </div>
+                                 <div class="ps-3">
+                                     <h6>@ViewBag.DashboardData["UserCount"]</h6>
+                                 </div>
+                             </div>
+                             <hr style="color:aqua" />
+                             @*<a asp-area="AdminCategories" asp-controller="AdminCategories" asp-action="Admin_Categories" class="text-info">View Details <i class="bi bi-arrow-right-circle-fill"></i></a>*@
+                         </div>
+                     </div>
+                 </div>
+                 <!--  end Category Card -->
+                 <!-- User Card -->
+                 <div class="col-xxl-3 col-md-6">
+                     <div class="card info-card abed-card border-5 border-info border-top rounded">
+                         <div class="card-body">
+                             <h5 class="card-title">Authiors <span>|</span></h5>
+                             <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center text-info bg-info-subtle bi bi-person-fill-add">
+                                     <i class="fa-solid fa-user"></i>
+                                 </div>
+                                 <div class="ps-3">
+                                     <h6>@ViewBag.DashboardData["AuthorCount"]</h6>
+                                 </div>
+                             </div>
+                             <hr style="color:aqua" />
+                             @* <a asp-area="MST_Room" asp-controller="MST_Room" asp-action="Index" class="text-info">View Details <i class="bi bi-arrow-right-circle-fill"></i></a> *@
+                         </div>
+                     </div>
+                 </div>
+                 <!-- End User Card -->
+
+             </div>
+         </div><!-- End Left side columns -->
+     </div>
+ </section>

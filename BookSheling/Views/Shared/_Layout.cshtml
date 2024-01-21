@@ -185,7 +185,7 @@
             <!-- Authors Dropdown -->
             <li class="nav-item">
                 <a class="nav-link collapsed parent-dropdown" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-people-fill"></i><span>Authors</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-people-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="users-nav" class="nav-content collapse" data-bs-parent="#users-parent">
                     <li>
@@ -220,12 +220,12 @@
             </li><!-- End Users Nav --> *@
             <li class="nav-item">
                 <a class="nav-link collapsed parent-dropdown" data-bs-toggle="collapse" href="#" data-bs-target="#other-nav">
-                    <i class="bi bi-list-task"></i><span>Types </span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-list-task"></i><span>All Authors </span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="other-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="" asp-action="" asp-area="">
-                            <i class="bi bi-circle"></i><span>Other Content</span>
+                        <a asp-controller="Author" asp-action="GetAllAuthors" asp-area="">
+                            <i class="bi bi-circle"></i><span>Author</span>
                         </a>
                     </li>
                 </ul>

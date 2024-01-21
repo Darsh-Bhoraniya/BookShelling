@@ -1,1 +1,68 @@
-﻿
+﻿@model IEnumerable<BookSheling.Models.Author_Model>
+@TempData["Masssege"];
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Author Tables</h5>
+                <!-- Table with stripped rows -->
+                <div><a asp-action="AddAuhtor" class="btn btn-success" asp-controller="Author">Add Author</a></div>
+                @{
+                    if (TempData["Masssege"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @TempData["Masssege"];
+                        </div>
+                    }
+                }
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th>AuthorID</th>
+                            <th>AuthorName</th>
+                            <th>AuthorEmail</th>
+                            <th>ContactNo</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>@data.AuthorID</td>
+                                <td>@data.AuthorName</td>
+                                <td>@data.AuthorEmail</td>
+                                <td>@data.ContactNo</td>
+                                <td>@data.Created</td>
+                                <td>@data.Modified</td>
+                                <td>
+                                    <a asp-action="edit" asp-controller="Author" asp-route-AuthorID="@data.AuthorID" class="bi bi-pencil-square btn btn-primary"></a>
+                                    <a asp-action="DeleteAuthor" asp-controller="Author" onclick="return conformedelete();" asp-route-AuthorID="@data.AuthorID" class="bi bi-trash btn btn-danger"></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function conformedelete() {
+            if (confirm("are you sure to delete this record??")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+    </script>
+}
