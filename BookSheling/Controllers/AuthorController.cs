@@ -1,10 +1,12 @@
-﻿using BookSheling.Models;
+﻿using BookSheling.BAL;
+using BookSheling.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace BookSheling.Controllers
 {
+    [CheckAccess]
     public class AuthorController : Controller
     {
 

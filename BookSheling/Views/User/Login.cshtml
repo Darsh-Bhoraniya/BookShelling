@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BookSheling.Models.Login_Model
+<!-- Sing in  Form -->
+<section class="sign-in ">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="~/pages/LoginSignUp/images/signin-image.jpg" alt="sing up image"></figure>
+                <a asp-action="RegisterUsers" asp-controller="User" class="signup-image-link">Create an account</a>
+            </div>
+            <div class="signin-form">
+                <h2 class="form-title">Sign In</h2>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show align-center w-100" role="alert">
+                        <h6 class="alert-heading">@TempData["error"]</h6>
+                        <hr>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                <form method="POST" asp-controller="User" asp-action="checkLoginDetails">
+                    <div class="form-group">
+                        <label><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" asp-for= "UserName" placeholder="Username" value="" />
+                        <span asp-validation-for="UserName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" asp-for="Password" placeholder="Password" />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                   @*  <div class="form-group">
+                        <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                        <label for="remember-me" class="label-agree-term">
+                            <span><span></span></span>Remember me
+                        </label>
+                    </div> *@
+                    <div class="form-group form-button">
+                        <input type="submit"  name="signin" id="signin" class="form-submit" value="Log in" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

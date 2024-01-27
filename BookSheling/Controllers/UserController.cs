@@ -6,6 +6,7 @@ using System.Data;
 using static System.Net.WebRequestMethods;
 using System.Security.AccessControl;
 using System.Text;
+using BookSheling.BAL;
 
 namespace BookSheling.Controllers
 {
@@ -22,8 +23,10 @@ namespace BookSheling.Controllers
 
 
         [HttpGet]
+        [CheckAccess]
         public IActionResult GetAllUsers()
         {
+
             List<User_Models> users = new List<User_Models>();
             HttpResponseMessage response = _client.GetAsync($"{Baseurl}/User/Getall").Result;
 
@@ -69,7 +72,7 @@ namespace BookSheling.Controllers
         public IActionResult Edit(int UserID)
         {
             User_Models user_Models = new User_Models();
-            HttpResponseMessage response = _client.GetAsync($"{Baseurl}/User/GetById/"+UserID).Result;
+            HttpResponseMessage response = _client.GetAsync($"{Baseurl}/User/GetById/" + UserID).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -87,19 +90,10 @@ namespace BookSheling.Controllers
         {
             try
             {
-               /* MultipartFormDataContent fromdata = new MultipartFormDataContent();
-                fromdata.Add(new StringContent(user_Models.UserName), "UserName");
-                fromdata.Add(new StringContent(user_Models.Email), "Email");
-                fromdata.Add(new StringContent(user_Models.Password), "Password");
-                fromdata.Add(new StringContent(user_Models.PhoneNumber), "PhoneNumber");
-                fromdata.Add(new StringContent(user_Models.RoleID.ToString()));*/
-                //fromdata.Add(new StringContent(user_Models.Created));
-                //fromdata.Add(new StringContent(user_Models.Modified.));
-
 
                 string data = JsonConvert.SerializeObject(user_Models);
-                StringContent content = new StringContent(data,Encoding.UTF8,"application/json");
-                if (user_Models.UserID==0)
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                if (user_Models.UserID == 0)
                 {
                     HttpResponseMessage response = _client.PostAsync($"{Baseurl}/User/Post/", content).Result;
                     if (response.IsSuccessStatusCode)
@@ -124,7 +118,65 @@ namespace BookSheling.Controllers
             }
             return RedirectToAction("GetAllUsers");
         }
-       public IActionResult RegisterUsers()
+        public IActionResult RegisterUsers()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> checkLoginDetails(Login_Model user)
+        {
+            if (!TryValidateModel(user)) return View("Login", user);
+            int id = await Login(user);
+            if (!(user != null && id > 0))
+            {
+                TempData["error"] = "Username or Password is incorrect";
+                return View("Login", user);
+            }
+            _SetSession(id,user);
+            int? a = UserSessonCV.UserId();
+            TempData.Clear();
+            if (HttpContext.Session.GetString("UserName") != null && HttpContext.Session.GetString("Password") != null)
+                return RedirectToAction("Index", "Home");
+            return View("Login");
+        }
+        private void _SetSession(int id,Login_Model user)
+        {
+            HttpContext.Session.SetString("UserName", user.UserName);
+            HttpContext.Session.SetString("Password", user!.Password);
+            HttpContext.Session.SetInt32("UserId", id);
+
+          }
+            public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return View("Login");
+        }
+        [HttpPost]
+        public async Task<int> Login(Login_Model login_Model)
+        {   
+            try
+            {
+
+                string data = JsonConvert.SerializeObject(login_Model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _client.PostAsync($"{Baseurl}/User/Login", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Masssege"] = "User login Successfully";
+                    string userid = response.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject<int>(userid);
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error Ocuures" + ex.Message;
+            }
+            return -1;
+        }
+        public IActionResult Login()
         {
             return View();
         }

@@ -1,4 +1,5 @@
-﻿using BookSheling.DAL;
+﻿using BookSheling.BAL;
+using BookSheling.DAL;
 using BookSheling.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 
 namespace BookSheling.Controllers
 {
+    [CheckAccess]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
