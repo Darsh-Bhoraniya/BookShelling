@@ -151,7 +151,7 @@ namespace BookSheling.Controllers
             public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return View("Login  ");
+            return View("Login");
         }
         [HttpPost]
         public async Task<int> Login(Login_Model login_Model)
