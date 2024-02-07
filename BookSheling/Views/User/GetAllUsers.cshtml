@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<BookSheling.Models.User_Models>
-@TempData["Masssege"];
 <div class="row">
     
     <div class="col-lg-12">
@@ -7,7 +6,9 @@
             <div class="card-body">
                 <h5 class="card-title">Users Tables</h5>
                 <!-- Table with stripped rows -->
-                <div><a asp-action="RegisterUsers" class="btn btn-success" asp-controller="User">Register Users</a></div>
+                <div><a asp-action="RegisterUsers" class="btn btn-success" asp-controller="User">Register Users</a>
+                    <a asp-action="ExportData" asp-controller="User" class="bi bi-save-square btn btn-primary">Export as xml</a>
+                </div>
                 @{
                     if (TempData["Masssege"] != null)
                     {

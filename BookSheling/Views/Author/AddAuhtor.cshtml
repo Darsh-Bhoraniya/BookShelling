@@ -6,14 +6,13 @@
 
 <h1>AddAuhtor</h1>
 
-<h4>Author_Model</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Post" asp-controller="Author">
                 <div>
                 </div>
-                @Html.HiddenFor(x => x.AuthorID);
+                @Html.HiddenFor(x => x.AuthorID)
             <div class="form-group">
                 <label asp-for="AuthorName" class="control-label"></label>
                 <input asp-for="AuthorName" class="form-control" />

@@ -7,6 +7,8 @@ using static System.Net.WebRequestMethods;
 using System.Security.AccessControl;
 using System.Text;
 using BookSheling.BAL;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office.CustomUI;
 
 namespace BookSheling.Controllers
 {
@@ -26,6 +28,7 @@ namespace BookSheling.Controllers
         [CheckAccess]
         public IActionResult GetAllUsers()
         {
+            ViewBag.RoleList = dropDowns();
 
             List<User_Models> users = new List<User_Models>();
             HttpResponseMessage response = _client.GetAsync($"{Baseurl}/User/Getall").Result;
@@ -71,6 +74,7 @@ namespace BookSheling.Controllers
         [HttpGet]
         public IActionResult Edit(int UserID)
         {
+            ViewBag.RoleList = dropDowns();
             User_Models user_Models = new User_Models();
             HttpResponseMessage response = _client.GetAsync($"{Baseurl}/User/GetById/" + UserID).Result;
 
@@ -120,8 +124,30 @@ namespace BookSheling.Controllers
         }
         public IActionResult RegisterUsers()
         {
+            ViewBag.RoleList = dropDowns();
             return View();
         }
+        public List<Role_DropDown> dropDowns()
+        {
+            List<Role_DropDown> users = new List<Role_DropDown>();
+            HttpResponseMessage r = _client.GetAsync($"{Baseurl}/Role/Getall").Result;
+            if (r.IsSuccessStatusCode)
+            {
+                string data = r.Content.ReadAsStringAsync().Result;
+                users = JsonConvert.DeserializeObject<List<Role_DropDown>>(data);
+            }
+            List<Role_DropDown> role_DropDowns = new List<Role_DropDown>();
+
+            foreach (var item in users)
+            {
+
+                Role_DropDown list = new Role_DropDown();
+                list.RoleID = Convert.ToInt32(item.RoleID);
+                list.RoleName = Convert.ToString(item.RoleName);
+                role_DropDowns.Add(list);
+            }
+            return role_DropDowns;
+        } 
 
 
         [HttpPost]
@@ -147,7 +173,7 @@ namespace BookSheling.Controllers
             HttpContext.Session.SetString("Password", user!.Password);
             HttpContext.Session.SetInt32("UserId", id);
 
-          }
+          } 
             public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -179,6 +205,59 @@ namespace BookSheling.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+        [HttpGet]
+        public IActionResult ExportData()
+        {
+            List<User_Models> users = new List<User_Models>();
+            HttpResponseMessage response = _client.GetAsync($"{_client.BaseAddress}/User/Getall").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+
+                dynamic jsonObject = JsonConvert.DeserializeObject(data);
+                var dataofObject = jsonObject.data;
+                var extractedDataJson = JsonConvert.SerializeObject(dataofObject, Formatting.Indented);
+                users = JsonConvert.DeserializeObject<List<User_Models>>(extractedDataJson);
+            }
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Users");
+                var currentRow = 1;
+                worksheet.Cell(currentRow, 1).Value = "Name";
+                worksheet.Cell(currentRow, 2).Value = "UserName";
+                worksheet.Cell(currentRow, 3).Value = "Email";
+                worksheet.Cell(currentRow, 4).Value = "PhoneNumber";
+                worksheet.Cell(currentRow, 5).Value = "Password";
+                worksheet.Cell(currentRow, 6).Value = "RoleID";
+                worksheet.Cell(currentRow, 7).Value = "Created";
+                worksheet.Cell(currentRow, 8).Value = "Modified";
+
+                foreach (var user in users)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = user.UserID;
+                    worksheet.Cell(currentRow, 2).Value = user.UserName;
+                    worksheet.Cell(currentRow, 3).Value = user.Email;
+                    worksheet.Cell(currentRow, 4).Value = user.PhoneNumber;
+                    worksheet.Cell(currentRow, 5).Value = user.Password;
+                    worksheet.Cell(currentRow, 6).Value = user.RoleID;
+                    worksheet.Cell(currentRow, 7).Value = Convert.ToDateTime(user.Created);
+                    worksheet.Cell(currentRow, 8).Value = user.Modified;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Users.xlsx");
+                }
+            }
         }
     }
 }
