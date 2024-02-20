@@ -129,16 +129,16 @@ namespace BookSheling.Controllers
         }
         public List<Role_DropDown> dropDowns()
         {
-            List<Role_DropDown> users = new List<Role_DropDown>();
+            List<Role_DropDown> role = new List<Role_DropDown>();
             HttpResponseMessage r = _client.GetAsync($"{Baseurl}/Role/Getall").Result;
             if (r.IsSuccessStatusCode)
             {
                 string data = r.Content.ReadAsStringAsync().Result;
-                users = JsonConvert.DeserializeObject<List<Role_DropDown>>(data);
+                role = JsonConvert.DeserializeObject<List<Role_DropDown>>(data);
             }
             List<Role_DropDown> role_DropDowns = new List<Role_DropDown>();
 
-            foreach (var item in users)
+            foreach (var item in role)
             {
 
                 Role_DropDown list = new Role_DropDown();
