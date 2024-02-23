@@ -1,0 +1,87 @@
+﻿@model BookSheling.Models.Book_Model
+
+@{
+    ViewData["Title"] = "AddBooks";
+}
+
+<div class="card ml-auto">
+    <div class="card-body text-center">
+        <h3>
+            <div class="card-header text-start text-success">
+                Add Book
+            </div>
+        </h3>
+        <div class="col-md-12 px-5">
+            <form asp-action="Post" asp-controller="Books">
+                @* <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+                <div class="form-group row pb-3">
+                    @Html.HiddenFor(x => x.BookID)
+                </div>
+                <div class="form-group row pb-3">
+                    <label asp-for="BookName" class="col-sm-2 col-form-label text-start">Book Name:</label>
+                    <div class="col-sm-10">
+                        <input asp-for="BookName" class="form-control" />
+                        <span asp-validation-for="BookName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pb-3">
+                    <label asp-for="BookTitle" class="col-sm-2 col-form-label text-start">Book Title:</label>
+                    <div class="col-sm-10">
+                        <input asp-for="BookTitle" class="form-control" />
+                        <span asp-validation-for="BookTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pb-3">
+                    <label asp-for="BookWiseAuthorID" class="col-sm-2 col-form-label text-start">Author:</label>
+                    <div class="col-sm-10">
+                        <input asp-for="BookWiseAuthorID" class="form-control" />
+                        <span asp-validation-for="BookWiseAuthorID" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pb-3">
+                    <label asp-for="TypeID" class="col-sm-2 col-form-label text-start">Type</label>
+                    <div class="col-sm-10">
+                        
+                        <select class="form-control" asp-for="TypeID" asp-items="@(new SelectList(ViewBag.Books_Type,"TypeID","TypeName"))">
+                            <option value="">Select Book Type</option>
+                        </select>
+                        <span asp-validation-for="TypeID" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pb-3">
+                    <label asp-for="Price" class="col-sm-2 col-form-label text-start">Price:</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pb-3">
+                    <label asp-for="INSBN" class="col-sm-2 col-form-label text-start">INSBN:</label>
+                    <div class="col-sm-10">
+                        <input asp-for="INSBN" class="form-control" />
+                        <span asp-validation-for="INSBN" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row pb-3">
+                    <label asp-for="PublishedDate" class="col-sm-2 col-form-label text-start">Published Date:</label>
+                    <div class="col-sm-10">
+                        <input type="date" asp-for="PublishedDate" class="form-control" />
+                        <span asp-validation-for="PublishedDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row card-footer ">
+                    <div class="col-sm-8 text-start">
+                        <a type="submit" class="btn btn-success  btn-block">Save</a>
+                        <a href="@Url.Action("GetAllBooks", "Books")" class="btn btn-secondary btn-block ">Back to List</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

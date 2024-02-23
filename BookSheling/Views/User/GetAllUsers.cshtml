@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<BookSheling.Models.User_Models>
 <div class="row">
-    
     <div class="col-lg-12">
-        <div class="card">
+        <div class="card border-0 shadow-sm">
             <div class="card-body">
-                <h5 class="card-title">Users Tables</h5>
-                <!-- Table with stripped rows -->
-                <div><a asp-action="RegisterUsers" class="btn btn-success" asp-controller="User">Register Users</a>
-                    <a asp-action="ExportData" asp-controller="User" class="bi bi-save-square btn btn-primary">Export as xml</a>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">Users Tables</h5>
+                    <div>
+                        <a asp-action="RegisterUsers" class="btn btn-success me-2" asp-controller="User">Register Users</a>
+                        <a asp-action="ExportData" asp-controller="User" class="btn btn-primary"><i class="bi bi-save-square"></i> Export as xml</a>
+                    </div>
                 </div>
-                @{
-                    if (TempData["Masssege"] != null)
-                    {
-                        <div class="alert alert-success" role="alert">
-                            @TempData["Masssege"];
-                        </div>
-                    }
+
+                @if (TempData["Masssege"] != null)
+                {
+                    <div id="Message" class="alert alert-success" role="alert">
+                        @TempData["Masssege"]
+                    </div>
                 }
-                <table class="table datatable">
+                <table class="table table-striped datatable">
                     <thead>
                         <tr>
                             <th>User Id</th>
@@ -29,37 +29,41 @@
                             <th>Created</th>
                             <th>Modified</th>
                             <th>Action</th>
-
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var data in Model)
                         {
+                            String User="" ;
+                            @foreach (var roles in ViewBag.RoleList)
+                            {
+                                if (roles.RoleID == data.RoleID)
+                                {
+                                    User = roles.RoleName;
+                                }
+                            }
                             <tr>
                                 <td>@data.UserID</td>
                                 <td>@data.UserName</td>
                                 <td>@data.Email</td>
                                 <td>@data.PhoneNumber</td>
                                 <td>@data.Password</td>
-                                <td>@data.RoleID</td>
-                                <td>@data.Created</td>
-                                <td>@data.Modified</td>
+                                <td>@User</td>
+                                <td>@data.Created.ToString("dd-MM-yyyy")</td>
+                                <td>@data.Modified.ToString("dd-MM-yyyy")</td>
                                 <td>
-                                    <a asp-action="Edit" asp-controller="User" asp-route-UserID="@data.UserID" class="bi bi-pencil-square btn btn-primary"></a>
-                                    <a asp-action="DeleteUsers" asp-controller="User" onclick="return conformedelete();" asp-route-UserID="@data.UserID" class="bi bi-trash btn btn-danger"></a>
-                                </td>
+                                    <a asp-action="Edit" asp-controller="User" asp-route-UserID="@data.UserID" class="btn btn-success me-2"><i class="bi bi-pencil-square"></i></a>
+                                    <a asp-action="DeleteUsers" asp-controller="User" onclick="return conformedelete();" asp-route-UserID="@data.UserID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                </td>   
                             </tr>
                         }
                     </tbody>
                 </table>
-                <!-- End Table with stripped rows -->
-
             </div>
         </div>
-
     </div>
 </div>
-@section Scripts {
+@* @section Scripts { *@
     <script>
         function conformedelete() {
             if (confirm("are you sure to delete this record??")) {
@@ -69,6 +73,12 @@
                 return false;
             }
         }
+        function delayedFunction() {
+            // Your function logic here
+            document.getElementById("Message").remove();    
+        }
 
+        // Call the delayed function after 5 seconds
+        setTimeout(delayedFunction, 5000);
     </script>
-}
+@* } *@

@@ -9,6 +9,7 @@ using System.Text;
 using BookSheling.BAL;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Office.CustomUI;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace BookSheling.Controllers
 {
@@ -36,28 +37,16 @@ namespace BookSheling.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string data = response.Content.ReadAsStringAsync().Result;
-                dynamic json = JsonConvert.DeserializeObject(data);
+              /*  dynamic json = JsonConvert.DeserializeObject(data);
                 var dataobj = json.data;
-                var extractDatajosn = JsonConvert.SerializeObject(dataobj, Formatting.Indented);
-                users = JsonConvert.DeserializeObject<List<User_Models>>(extractDatajosn);
+                var extractDatajosn = JsonConvert.SerializeObject(dataobj, Formatting.Indented);*/
+                users = JsonConvert.DeserializeObject<List<User_Models>>(data);
             }
             return View("GetAllUsers", users);
         }
         [HttpGet]
-
         public IActionResult DeleteUsers(int UserID)
         {
-            //Geting Code From The Postman
-
-            /*var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Delete, "https://localhost:44395/api/User/Delete?UserID=7");
-            var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            {
-                TempData["Masssege"] = "User Deleted Successfully";
-            }
-            Console.WriteLine(await response.Content.ReadAsStringAsync());*/
-
             _client.DefaultRequestHeaders.Accept.Clear();
 
             // Manual  add a {?UserId= UseId} They get Data From the UerId = Xyz;
@@ -81,11 +70,12 @@ namespace BookSheling.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string data = response.Content.ReadAsStringAsync().Result;
-                dynamic json = JsonConvert.DeserializeObject(data);
+                /*dynamic json = JsonConvert.DeserializeObject(data);
                 var dataobj = json.data;
-                var extractDatajosn = JsonConvert.SerializeObject(dataobj, Formatting.Indented);
-                user_Models = JsonConvert.DeserializeObject<User_Models>(extractDatajosn);
+                var extractDatajosn = JsonConvert.SerializeObject(dataobj, Formatting.Indented);*/
+                user_Models = JsonConvert.DeserializeObject<User_Models>(data);
             }
+           
             return View("RegisterUsers", user_Models);
         }
 
@@ -115,6 +105,14 @@ namespace BookSheling.Controllers
                         return RedirectToAction("GetAllUsers");
                     }
                 }
+                if (user_Models.UserID != null || user_Models.UserID > 0)
+                {
+                    ViewBag.Action = "Edit";
+                }
+                else
+                {
+                    ViewBag.Action = "Add";
+                }
             }
             catch (Exception ex)
             {
@@ -127,6 +125,7 @@ namespace BookSheling.Controllers
             ViewBag.RoleList = dropDowns();
             return View();
         }
+
         public List<Role_DropDown> dropDowns()
         {
             List<Role_DropDown> role = new List<Role_DropDown>();
@@ -192,7 +191,7 @@ namespace BookSheling.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["Masssege"] = "User login Successfully";
-                    string userid = response.Content.ReadAsStringAsync().Result;
+                     string userid = response.Content.ReadAsStringAsync().Result;
                     return JsonConvert.DeserializeObject<int>(userid);
                 }
             }
@@ -200,7 +199,7 @@ namespace BookSheling.Controllers
             {
                 TempData["Error"] = "Error Ocuures" + ex.Message;
             }
-            return -1;
+           return -1;
         }
         public IActionResult Login()
         {

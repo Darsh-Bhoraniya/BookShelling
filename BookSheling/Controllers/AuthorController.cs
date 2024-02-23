@@ -44,6 +44,8 @@ namespace BookSheling.Controllers
             }
             return RedirectToAction("GetAllAuthors");
         }
+
+
         [HttpGet]
         public IActionResult Edit(int AuthorID)
         {
@@ -54,7 +56,7 @@ namespace BookSheling.Controllers
             {
                 string data = response.Content.ReadAsStringAsync().Result;
                 Author_Model json = JsonConvert.DeserializeObject<Author_Model>(data) as Author_Model;
-            return View("AddAuhtor", json);
+                return View("AddAuhtor", json);
             }
             return View("GetAllAuthors");
 
@@ -67,6 +69,12 @@ namespace BookSheling.Controllers
             {
                 string data = JsonConvert.SerializeObject(author_Model);
                 StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                if (author_Model.AuthorID != null || author_Model.AuthorID > 0)
+                {
+                    ViewBag.Action = "Edit";
+                }
+                ViewBag.Action = "Add";
                 if (author_Model.AuthorID == 0)
                 {
                     HttpResponseMessage response = _client.PostAsync($"{Baseurl}/Author/Post/", content).Result;
@@ -75,6 +83,8 @@ namespace BookSheling.Controllers
                         TempData["Masssege"] = "Author insert Successfully";
                         return RedirectToAction("GetAllAuthors");
                     }
+                    TempData.Clear();
+
                 }
                 else
                 {

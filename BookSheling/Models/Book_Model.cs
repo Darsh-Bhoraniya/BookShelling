@@ -14,5 +14,14 @@
         public DateTime Modified { get; set; }
 
     }
+    public class Book_Type
+    {
+        public int TypeID { get; set; }
+        public string TypeName { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime modified { get; set; }
+
+
+    }
 
 }

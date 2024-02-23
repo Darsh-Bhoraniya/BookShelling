@@ -4,47 +4,45 @@
     ViewData["Title"] = "AddAuhtor";
 }
 
-<h1>AddAuhtor</h1>
+<h1>@ViewBag.Action</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Post" asp-controller="Author">
-                <div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Author Form</h4>
                 </div>
-                @Html.HiddenFor(x => x.AuthorID)
-            <div class="form-group">
-                <label asp-for="AuthorName" class="control-label"></label>
-                <input asp-for="AuthorName" class="form-control" />
-                <span asp-validation-for="AuthorName" class="text-danger"></span>
+                <div class="card-body">
+                    <form asp-action="Post" asp-controller="Author">
+                        @Html.HiddenFor(x => x.AuthorID)
+                        <div class="mb-3">
+                            <label for="AuthorName" asp-for="AuthorName" class="form-label">Author Name</label>
+                            <input type="text" id="AuthorName" name="AuthorName" asp-for="AuthorName" class="form-control" />
+                            <span class="text-danger" asp-validation-for="AuthorName"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="AuthorEmail" class="form-label" asp-for="AuthorEmail">Author Email</label>
+                            <input type="email" id="AuthorEmail" name="AuthorEmail"  asp-for="AuthorEmail" class="form-control" />
+                            <span class="text-danger" asp-validation-for="AuthorEmail"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ContactNo" asp-for="ContactNo" class="form-label">Contact Number</label>
+                            <input type="text" asp-for="ContactNo" id="ContactNo" name="ContactNo" class="form-control" />
+                            <span class="text-danger" asp-validation-for="ContactNo"></span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                            <a href="@Url.Action("GetAllAuthors", "Author")" class="btn btn-secondary btn-block mt-3">Back to List</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="AuthorEmail" class="control-label"></label>
-                <input asp-for="AuthorEmail" class="form-control" />
-                <span asp-validation-for="AuthorEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNo" class="control-label"></label>
-                <input asp-for="ContactNo" class="form-control" />
-                <span asp-validation-for="ContactNo" class="text-danger"></span>
-            </div>
-@*             <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Modified" class="control-label"></label>
-                <input asp-for="Modified" class="form-control" />
-                <span asp-validation-for="Modified" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <button asp-action="Post" class="btn btn-primary" asp-controller="Author">Save</button>
-                <a class="btn btn-info" asp-action="GetAllAuthors">Back To List</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
