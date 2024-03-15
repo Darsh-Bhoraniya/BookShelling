@@ -1,4 +1,4 @@
-﻿using BookSheling.BAL;
+﻿    using BookSheling.BAL;
 using BookSheling.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -67,14 +67,15 @@ namespace BookSheling.Controllers
         {
             try
             {
-                string data = JsonConvert.SerializeObject(author_Model);
-                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-
                 if (author_Model.AuthorID != null || author_Model.AuthorID > 0)
                 {
                     ViewBag.Action = "Edit";
                 }
                 ViewBag.Action = "Add";
+                string data = JsonConvert.SerializeObject(author_Model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                
                 if (author_Model.AuthorID == 0)
                 {
                     HttpResponseMessage response = _client.PostAsync($"{Baseurl}/Author/Post/", content).Result;

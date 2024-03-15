@@ -1,8 +1,8 @@
-﻿@model BookSheling.Models.User_Models;
-<h2> @ViewBag.Action Page</h2>
-<hr />
+﻿
+@model BookSheling.Models.User_Models;
 
-div class="row justify-content-center">
+
+<div class="row justify-content-center">
 <div class="col-md-6">
     <div class="card shadow-sm">
         <div class="card-body">
@@ -28,6 +28,11 @@ div class="row justify-content-center">
                     <label asp-for="Password" class="form-label"></label>
                     <input type="password" asp-for="Password" class="form-control" placeholder="Enter Password"/>
                     <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Select Role</label>

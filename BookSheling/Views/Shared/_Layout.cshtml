@@ -15,7 +15,7 @@
 
     <!-- Favicons -->
     <link href="~/assets/img/logo.jpg" rel="icon">
-        <link href="~/assets/img/logo.jpg" rel="apple-touch-icon">
+    <link href="~/assets/img/logo.jpg" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -63,7 +63,7 @@
             </form>
         </div><!-- End Search Bar -->
 
-        <nav class="header-nav ms-auto"> 
+        <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
                 <li class="nav-item d-block d-lg-none">
@@ -140,36 +140,36 @@
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-           @*  <li class="nav-item">
-                <a class="nav-link " asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
+            @*  <li class="nav-item">
+            <a class="nav-link " asp-controller="Home" asp-action="Index">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+            </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed parent-dropdown" data-bs-target="#books-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-layout-text-window-reverse"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="books-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a asp-controller="" asp-action="" asp-area="">
-                            <i class="bi bi-plus"></i><span>Books List</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="" asp-action="" asp-area="">
-                            <i class="bi bi-plus" style="font-size: 2rem"></i><span>Add New books</span>
-                        </a>
-                    </li>
-                </ul>
+            <a class="nav-link collapsed parent-dropdown" data-bs-target="#books-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-layout-text-window-reverse"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="books-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+            <a asp-controller="" asp-action="" asp-area="">
+            <i class="bi bi-plus"></i><span>Books List</span>
+            </a>
+            </li>
+            <li>
+            <a asp-controller="" asp-action="" asp-area="">
+            <i class="bi bi-plus" style="font-size: 2rem"></i><span>Add New books</span>
+            </a>
+            </li>
+            </ul>
             </li><!-- End Books Nav --> *@
             <!-- Books Dropdown -->
             <li class="nav-item">
                 <a class="nav-link collapsed parent-dropdown" data-bs-target="#books-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-book"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="books-nav" class="nav-content collapse" data-bs-parent="#books-parent">
+                <ul id="books-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
                         <a asp-controller="Books" asp-action="GetAllBooks">
                             <i class="bi bi-book"></i><span>Books List</span>
@@ -182,12 +182,12 @@
                     </li>
                 </ul>
             </li><!-- End Books Nav -->
-            <!-- Authors Dropdown -->
+            <!-- Users Dropdown -->
             <li class="nav-item">
                 <a class="nav-link collapsed parent-dropdown" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-people-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="users-nav" class="nav-content collapse" data-bs-parent="#users-parent">
+                <ul id="users-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
                         <a asp-controller="User" asp-action="GetAllUsers" asp-area="">
                             <i class="bi bi-circle"></i><span>All Users</span>
@@ -200,38 +200,33 @@
                     </li>
                 </ul>
             </li><!-- End Users Nav -->
-
-       @*      <li class="nav-item">
-                <a class="nav-link collapsed parent-dropdown" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-people-fill"></i><span>Authors</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="users-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a asp-controller="" asp-action="" asp-area="">
-                            <i class="bi bi-circle"></i><span>All Authors</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="" asp-action="">
-                            <i class="bi bi-plus"></i><span>Add Authors</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Users Nav --> *@
+            <!-- Authors Dropdown -->
             <li class="nav-item">
-                <a class="nav-link collapsed parent-dropdown" data-bs-toggle="collapse" href="#" data-bs-target="#other-nav">
+                <a class="nav-link collapsed parent-dropdown" data-bs-target="#authors-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-list-task"></i><span>All Authors </span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="other-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <ul id="authors-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
                         <a asp-controller="Author" asp-action="GetAllAuthors" asp-area="">
                             <i class="bi bi-circle"></i><span>Author</span>
                         </a>
                     </li>
                 </ul>
-            </li><!-- End Other Nav -->
-
-
+            </li><!-- End Authors Nav -->
+            <!-- Books Types Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link collapsed " data-bs-toggle="collapse" href="#" data-bs-target="#books-types-nav">
+                    <i class="bi bi-journal-richtext"></i><span>Books Types </span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="books-types-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="BooksTypes" asp-action="GetAllBooksTypes" asp-area="">
+                            <i class="bi bi-circle"></i><span>Types Of Books </span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Books Types Nav -->
+           
 
         </ul>
 

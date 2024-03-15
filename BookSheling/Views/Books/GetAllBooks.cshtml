@@ -11,6 +11,14 @@
                             <a asp-action="" class="btn btn-primary" asp-controller="Book"><i class="bi bi-clipboard-data"></i> Extract data</a>
                         </div>
                     </div>
+                    <div>
+                        @if (TempData["Masssege"] != null)
+                        {
+                            <div id="Message" class="alert alert-success" role="alert">
+                                @TempData["Masssege"]
+                            </div>
+                        }
+                    </div>
                     <table class="table table-striped table-hover mt-3">
                         <thead class="thead-dark">
                             <tr>
@@ -68,5 +76,12 @@
                 return false;
             }
         }
+        function delayedFunction() {
+            // Your function logic here
+            document.getElementById("Message").remove();
+        }
+
+        // Call the delayed function after 5 seconds
+        setTimeout(delayedFunction, 2500);
     </script>
 }
