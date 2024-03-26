@@ -9,7 +9,11 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h5 class="card-title mb-0">Book Table</h5>
                         <div class="d-flex justify-content-end">
-                            <a asp-action="AddBookTypes" class="btn btn-success me-2" asp-controller="BooksTypes"><i class="bi bi-plus-circle"></i> Insert Book Types</a>
+                            <a asp-action="AddBookTypes" class="btn btn-success" asp-controller="BooksTypes"><i class="bi bi-plus-circle"></i> Insert Book Types</a>
+                            @* <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addBookTypeModal">
+                                Add Book Type
+                            </button> *@
+
                             <a asp-action="" class="btn btn-primary" asp-controller="Book"><i class="bi bi-clipboard-data"></i> Extract data</a>
                         </div>
                     </div>
@@ -44,6 +48,25 @@
         </div>
     </div>
 </div>
+
+<div id="AddEditmodel" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="bodymodel">
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         function conformedelete() {
