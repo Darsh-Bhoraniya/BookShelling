@@ -44,11 +44,20 @@
                                         Book_Type = roles.TypeName;
                                     }
                                 }
-                                <tr>
-                                    <td>@data.BookID</td>
+                                String Autorname = "";
+                                @foreach (var author in ViewBag.authorname)
+                                {
+                                    if (author.AuthorID == data.AuthorID)
+                                    {
+                                        Autorname = author.AuthorName;
+                                    }
+                                }
+
+                            <tr>
+                                <td>@data.BookID</td>
                                     <td>@data.BookName</td>
                                     <td>@data.BookTitle</td>
-                                    <td>@data.BookWiseAuthorID</td>
+                                    <td>@Autorname</td>
                                     <td>@Book_Type</td>
                                     <td>$@data.Price</td>
                                     <td>@data.INSBN</td>

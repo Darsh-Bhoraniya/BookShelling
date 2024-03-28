@@ -20,6 +20,7 @@ namespace BookSheling.Controllers
         [HttpGet]
         public IActionResult GetAllAuthors()
         {
+           
             List<Author_Model> author = new List<Author_Model>();
             HttpResponseMessage response = _client.GetAsync($"{Baseurl}/Author/Getall").Result;
 
@@ -34,6 +35,8 @@ namespace BookSheling.Controllers
             }
             return View("GetAllAuthors");
         }
+       
+
         public IActionResult DeleteAuthor(int AuthorID)
         {
 
@@ -49,6 +52,7 @@ namespace BookSheling.Controllers
         [HttpGet]
         public IActionResult Edit(int AuthorID)
         {
+            
             Author_Model author_Model = new Author_Model();
             HttpResponseMessage response = _client.GetAsync($"{Baseurl}/Author/AuthorGetbyId/" + AuthorID).Result;
 
@@ -105,6 +109,7 @@ namespace BookSheling.Controllers
         }
         public IActionResult AddAuhtor()
         {
+         
             return View();
         }
     }
